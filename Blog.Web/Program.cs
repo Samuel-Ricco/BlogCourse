@@ -1,4 +1,5 @@
 using Blog.Web.Data;
+using Blog.Web.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace Blog.Web
@@ -14,6 +15,10 @@ namespace Blog.Web
 
             builder.Services.AddDbContext<BlogDbContext>(option =>
                 option.UseSqlServer(builder.Configuration.GetConnectionString("BlogDbConnectionString")));
+
+            builder.Services.AddScoped<ITagRepository, TagRepository>();
+            builder.Services.AddScoped<IBlogPostRepository, BlogPostRepository>();
+            builder.Services.AddScoped<IImageRepository, CloudinaryImageRepository>();
 
             var app = builder.Build();
 
